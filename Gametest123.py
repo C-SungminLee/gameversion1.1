@@ -10,10 +10,12 @@ import time
 wn = trtl.Screen()
 wn.addshape("taco.gif")
 wn.addshape("burrito.gif")
+wn.addshape("buttonunpressed.gif")
+wn.addshape("buttonpressed.gif")
 
 # math problems and answers for burrito lootbox
-math_problems = ["1 + 1 = ?","84 / 4 = ?","5 * 25 = ?","3^4 = ?","9 ^ 1/2 = ?"]
-math_anwers = ["2", "21", "125","81","3"]
+math_problems = ["1 + 1 = ?","84 / 4 = ?","5 * 25 = ?","3^4 = ?","9 ^ 1/2 = ?","6 * 2 = ?", "50 / 10 = ?","Solve for x. 9((3x+6)/3) = 0"]
+math_anwers = ["2", "21", "125","81","3", "12", "5", "-2"]
 
 score_writer = trtl.Turtle()
 score_writer.speed(0)
@@ -25,16 +27,10 @@ score_writer.pendown()
 # Upgrade Button
 button = trtl.Turtle()
 button.speed(0)
-button.shape("burrito.gif")
+button.shape("buttonunpressed.gif")
 button.penup()
 button.setposition(-170, 180)
 
-
-def countdown():
-  burrito.showturtle()
-  wn.ontimer(countdown, rand.randint(30000,300000))
-
-wn.ontimer(countdown,rand.randint(30000,300000))
 
 burrito = trtl.Turtle()
 burrito.speed(0)
@@ -93,6 +89,13 @@ p.speed(3)
 ### Game functions ###
 ######################
 
+def countdown():
+  burrito.showturtle()
+  wn.ontimer(countdown, rand.randint(30000,120000))
+
+wn.ontimer(countdown,rand.randint(30000,120000))
+
+
 #When the taco is clicked increase the score
 def taco_click(x, y):
   update_score()
@@ -135,6 +138,7 @@ def upgrade():
   global score
   global upgrade_cost
   if score >= upgrade_cost:
+    button.shape("buttonpressed.gif")
     score_rate += 1
     rate.clear()
     rate.write("Tacos per click: " + str(score_rate))
@@ -145,6 +149,9 @@ def upgrade():
 
     next.clear()
     next.write("Next upgrade: " + str(upgrade_cost) + " tacos")
+    button.shape("buttonunpressed.gif")
+
+
 
 
 #detecting the clicks
